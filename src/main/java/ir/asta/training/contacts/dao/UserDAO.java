@@ -1,5 +1,6 @@
 package ir.asta.training.contacts.dao;
 
+import ir.asta.training.contacts.entities.DetailsEntity;
 import ir.asta.training.contacts.entities.PostEntity;
 import ir.asta.training.contacts.entities.UserEntity;
 import ir.asta.wise.core.datamanagement.ActionResult;
@@ -25,7 +26,7 @@ public class UserDAO {
         return list.size() > 0;
     }
 
-    public void saveUser(UserEntity entity){entityManager.persist(entity);}
+    public void saveUser(final UserEntity entity){entityManager.persist(entity);}
 
     public UserEntity getUserInfo(final UserEntity entity) {
         //TODO: complete this part
@@ -38,13 +39,26 @@ public class UserDAO {
         return (obj != null) ? (UserEntity) obj : entity; //returning the entity
     }
 
-    public void deleteAll() {
-        Query query = entityManager.createQuery("SELECT u from UserEntity u WHERE 1=1");
-        System.out.println(" *\n- All users deleted\n *");
-    }
-
-    public ActionResult<PostEntity> createPost(final PostEntity entity) {
+    public void createPost(final PostEntity entity) {
         //TODO: Complete this part for adding post to DataBase
-        return null;
+        System.out.println(entity.getLastUpdate());
+        System.out.println(entity.getDetail());
+        System.out.println(entity.getFrom_who());
+        System.out.println(entity.getOtherDescriptions());
+        for (DetailsEntity d : entity.getOtherDescriptions()) {
+            System.out.println(d.getDetail_id());
+            System.out.println(d.getResponsible());
+            System.out.println(d.getText());
+        }
+        System.out.println(entity.getPost_id());
+        System.out.println(entity.getStatus());
+        System.out.println(entity.getTitle());
+        System.out.println(entity.getTo_who());
+        /*
+        TODO : look for the "user"'s ID with it's username(from) in DB and then add the post to it...
+        */
+        entityManager.persist(entity);
+
+//        return null;
     }
 }

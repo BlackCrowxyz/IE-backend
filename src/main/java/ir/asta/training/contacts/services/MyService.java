@@ -26,14 +26,10 @@ public interface MyService {
     @Produces(MediaType.APPLICATION_JSON)
     public ActionResult<UserEntity> login(final UserEntity entity);
 
-//    @POST
-//    @Path("/createPost")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public ActionResult<PostEntity> createPost(final PostEntity entity);
-
-    @GET
-    @Path("/deleteAll")
-    public void deleteAll();
+    @POST
+    @Path("/createPost")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ActionResult<PostEntity> createPost(final PostEntity entity);
 
 }

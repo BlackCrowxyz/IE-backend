@@ -103,25 +103,22 @@ public class MyManager {
         return result;
     }
 
-    public void deleteAll() {
-        dao.deleteAll();
-    }
+    @Transactional
+    public ActionResult<PostEntity> createPost(final PostEntity entity) {
+        ActionResult<PostEntity> result = new ActionResult<>();
 
-//    public ActionResult<PostEntity> createPost(final PostEntity entity) {
-//        ActionResult<PostEntity> result = new ActionResult<>();
-//
-//        if (Objects.equals(entity.getDetail(), "")
-//                || Objects.equals(entity.getTitle(), "")
-//                || entity.getResponsible() == null){
-//            result.setMessage("createPost > Failed");
-//            System.out.println("createPost > empty field");
-//            return result;
-//        }
-//        result.setSuccess(true);
-//        result.setMessage("createPost > Success");
-//
-//        dao.createPost(entity);
-//        return result;
-//    }
+        if (Objects.equals(entity.getDetail(), "")
+                || Objects.equals(entity.getTitle(), "")
+                || entity.getFrom_who() == null){
+            result.setMessage("createPost > Failed");
+            System.out.println("createPost > empty field");
+            return result;
+        }
+        result.setSuccess(true);
+        result.setMessage("createPost > Success");
+
+        dao.createPost(entity);
+        return result;
+    }
 
 }

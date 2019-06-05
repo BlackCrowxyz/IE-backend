@@ -27,12 +27,7 @@ public class MyServiceImpl implements MyService{
     @Override
     public ActionResult<UserEntity> login(final UserEntity entity) {return manager.login(entity);}
 
-//    @Override
-//    public ActionResult<PostEntity> createPost(final PostEntity entity) {return manager.createPost(entity);}
-
     @Override
-    public void deleteAll() {
-        manager.deleteAll();
-    }
+    public ActionResult<PostEntity> createPost(final PostEntity entity) {return manager.createPost(entity);}
 
 }
