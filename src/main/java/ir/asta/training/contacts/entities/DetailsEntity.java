@@ -5,7 +5,7 @@ import javax.persistence.*;
 /**
  * Created by ASUS on 5/19/2019.
  */
-@Table(name = "details_table")
+@Table(name = "details")
 @Entity
 public class DetailsEntity {
 
@@ -18,6 +18,10 @@ public class DetailsEntity {
     @Column(name = "responsible")
     private String responsible;
     //TODO: time set?
+
+
+    public DetailsEntity() {
+    }
 
     public int getDetail_id() {
         return detail_id;

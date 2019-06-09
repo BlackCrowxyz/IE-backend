@@ -2,12 +2,16 @@ package ir.asta.training.contacts.services.impl;
 
 import ir.asta.training.contacts.entities.PostEntity;
 import ir.asta.training.contacts.entities.UserEntity;
+import ir.asta.training.contacts.entities.UserToken;
 import ir.asta.training.contacts.manager.MyManager;
 import ir.asta.training.contacts.services.MyService;
 import ir.asta.wise.core.datamanagement.ActionResult;
+import ir.asta.wise.core.reponse.PostResponse;
+import ir.asta.wise.core.reponse.Response;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 /**
  * Created by ASUS on 5/5/2019.
@@ -20,14 +24,19 @@ public class MyServiceImpl implements MyService{
     private MyManager manager;
 
     @Override
-    public ActionResult<UserEntity> createUser(final UserEntity entity) {
+    public ActionResult<Response> createUser(final UserEntity entity) {
         return manager.createUser(entity);
     }
 
     @Override
-    public ActionResult<UserEntity> login(final UserEntity entity) {return manager.login(entity);}
+    public ActionResult<Response> login(final UserEntity entity) {return manager.login(entity);}
 
     @Override
-    public ActionResult<PostEntity> createPost(final PostEntity entity) {return manager.createPost(entity);}
+    public ActionResult<Response> sendToken(final UserToken token){
+        return manager.sendToken(token);
+    }
+
+    @Override
+    public ActionResult<List<PostResponse>> createPost(final PostEntity entity) {return manager.createPost(entity);}
 
 }

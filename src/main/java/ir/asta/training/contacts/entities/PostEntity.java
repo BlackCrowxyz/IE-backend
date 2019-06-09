@@ -1,5 +1,7 @@
 package ir.asta.training.contacts.entities;
 
+import org.apache.cxf.jaxrs.ext.multipart.Attachment;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 /**
  * Created by ASUS on 5/19/2019.
  */
-@Table(name = "posts_table")
+@Table(name = "Posts")
 @Entity
 public class PostEntity {
 
@@ -15,10 +17,10 @@ public class PostEntity {
     @Column(name = "post_id")
     private int post_id;
 
-    @Column(name = "from_who")
-    private String from_who;
-    @Column(name = "to_who")
-    private String to_who;
+//    @Column(name = "from_id")
+//    private int from_id;
+//    @Column(name = "to_id")
+//    private int to_id;
     @Column(name = "title")
     private String title;
     @Column(name = "status")
@@ -29,24 +31,49 @@ public class PostEntity {
     private String detail;
     @Column(name = "satisfied")
     private boolean satisfied;
+//    @Column(name = "attachment")
+//    private Attachment attachment;
 
-    @OneToMany(targetEntity = DetailsEntity.class)
+    @OneToMany(targetEntity = DetailsEntity.class, cascade=CascadeType.ALL)
     private List<DetailsEntity> otherDescriptions;
 
+    @ManyToOne
+    @JoinColumn(name = "from_user_id")
+    private UsersEntity from;
+
+    @ManyToOne
+    @JoinColumn(name = "to_user_id")
+    private UsersEntity to;
+
     public PostEntity(){}
-    public PostEntity(String from, String to, List<DetailsEntity> otherDescriptions, String title, String status, String lastUpdate, String detail, boolean satisfied) {
-        this.from_who = from;
-        this.from_who = to;
-        this.otherDescriptions = otherDescriptions;
-        this.title = title;
-        this.status = status;
-        this.lastUpdate = lastUpdate;
-        this.detail = detail;
-        this.satisfied = satisfied;
-    }
 
     public int getPost_id() {
         return post_id;
+    }
+
+//    public Attachment getAttachment() {
+//        return attachment;
+//    }
+//
+//    public void setAttachment(Attachment attachment) {
+//        this.attachment = attachment;
+//    }
+
+
+    public UsersEntity getFrom() {
+        return from;
+    }
+
+    public void setFrom(UsersEntity from) {
+        this.from = from;
+    }
+
+    public UsersEntity getTo() {
+        return to;
+    }
+
+    public void setTo(UsersEntity to) {
+        this.to = to;
     }
 
     public void setPost_id(int post_id) {
@@ -93,22 +120,6 @@ public class PostEntity {
         this.satisfied = satisfied;
     }
 
-    public String getFrom_who() {
-        return from_who;
-    }
-
-    public void setFrom_who(String from_who) {
-        this.from_who = from_who;
-    }
-
-    public String getTo_who() {
-        return to_who;
-    }
-
-    public void setTo_who(String to_who) {
-        this.to_who = to_who;
-    }
-
     public List<DetailsEntity> getOtherDescriptions() {
         return otherDescriptions;
     }
@@ -117,11 +128,5 @@ public class PostEntity {
         this.otherDescriptions = otherDescriptions;
     }
 
-    //    public String getResponsible() {
-//        return responsible;
-//    }
-//
-//    public void setResponsible(String responsible) {
-//        this.responsible = responsible;
-//    }
+
 }

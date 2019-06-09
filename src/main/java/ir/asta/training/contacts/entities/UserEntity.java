@@ -6,14 +6,15 @@ import java.util.List;
 /**
  * Created by ASUS on 5/14/2019.
  */
-@Table(name = "users_table")
+
 @Entity
+@Table(name = "userInfo")
 public class UserEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private int user_id;
-
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "user_id")
+    private int id;
+    @Column(name = "token")
+    private String token;
     @Column(name = "username")
     private String username;
     @Column(name = "email")
@@ -22,25 +23,21 @@ public class UserEntity {
     private String password;
     @Transient
     private String repassword;
-    @Column(name = "student")
-    private boolean student;
-    @Column(name = "active")
-    private boolean active;
+    @Column(name = "role")
+    private String role;
+    @Column(name = "is_active")
+    private boolean Active;
 
-    @OneToMany(targetEntity = PostEntity.class)
-    private List<PostEntity> sendPosts;
 
-    @OneToMany(targetEntity = PostEntity.class)
-    private List<PostEntity> receivePosts;
 
     public UserEntity(){}
 
-    public int getUser_id() {
-        return user_id;
+    public int getId() {
+        return id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -67,43 +64,33 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getRepassword() {
-        return repassword;
+    public String getRole() {
+        return role;
     }
 
-    public void setRepassword(String repassword) {
-        this.repassword = repassword;
-    }
-
-    public boolean isStudent() {
-        return student;
-    }
-
-    public void setStudent(boolean student) {
-        this.student = student;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean isActive() {
-        return active;
+        return Active;
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        Active = active;
     }
 
-    public List<PostEntity> getSendPosts() {
-        return sendPosts;
+    public String getRepassword() {return repassword;}
+
+    public void setRepassword(String repassword) {this.repassword = repassword;}
+
+    public String getToken() {
+        return token;
     }
 
-    public void setSendPosts(List<PostEntity> sendPosts) {
-        this.sendPosts = sendPosts;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public List<PostEntity> getReceivePosts() {
-        return receivePosts;
-    }
 
-    public void setReceivePosts(List<PostEntity> receivePosts) {
-        this.receivePosts = receivePosts;
-    }
 }
