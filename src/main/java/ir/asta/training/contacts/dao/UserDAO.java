@@ -57,24 +57,19 @@ public class UserDAO {
 
     public void createPost(final PostEntity entity) {entityManager.persist(entity);}
 
+    //get my posts (student)
     public List<PostResponse> getMyPosts(int from_id){
         List<PostResponse> posts = new ArrayList<>();
-        Query query = entityManager.createQuery("select u from PostEntity u where u.id=:id");
+        Query query = entityManager.createQuery("select u from PostEntity u where u.from.id = :id");
         query.setParameter("id", from_id);
-
         List<PostEntity> postEntities = query.getResultList();
         System.out.println(postEntities.size());
-
         for (PostEntity pe: postEntities) {
-            System.out.println("***************");
-            System.out.println(pe.getFrom().getId());
-            System.out.println(pe.getTitle());
-            System.out.println(pe.getTo().getId());
-            System.out.println(pe.getOtherDescriptions().size());
-            System.out.println("***************");
             posts.add(
                     new PostResponse(
-                            this.getUserInfoById(pe.getTo().getId()),
+                            pe.getPost_id(),
+                            this.getUsernameById(pe.getTo().getId()),
+                            this.getUsernameById(pe.getFrom().getId()),
                             pe.getTitle(),
                             pe.getStatus(),
                             pe.getLastUpdate(),
@@ -84,13 +79,87 @@ public class UserDAO {
                     )
             );
         }
-
+        return posts;
+    }
+	
+	//get my related posts (prof)
+    public List<PostResponse> getRelatedPosts(int to_id){
+        List<PostResponse> posts = new ArrayList<>();
+        Query query = entityManager.createQuery("select u from PostEntity u where u.to.id = :id");
+        query.setParameter("id", to_id);
+        List<PostEntity> postEntities = query.getResultList();
+        System.out.println(postEntities.size());
+        for (PostEntity pe: postEntities) {
+            posts.add(
+                    new PostResponse(
+                            pe.getPost_id(),
+                            this.getUsernameById(pe.getTo().getId()),
+                            this.getUsernameById(pe.getFrom().getId()),
+                            pe.getTitle(),
+                            pe.getStatus(),
+                            pe.getLastUpdate(),
+                            pe.getDetail(),
+                            pe.isSatisfied(),
+                            pe.getOtherDescriptions()
+                    )
+            );
+        }
+        return posts;
+    }
+	
+	//get all posts (admin)
+    public List<PostResponse> getAllPosts(){
+        List<PostResponse> posts = new ArrayList<>();
+        Query query = entityManager.createQuery("select u from PostEntity u");
+        List<PostEntity> postEntities = query.getResultList();
+        System.out.println(postEntities.size());
+        for (PostEntity pe: postEntities) {
+            posts.add(
+                    new PostResponse(
+                            pe.getPost_id(),
+                            this.getUsernameById(pe.getTo().getId()),
+                            this.getUsernameById(pe.getFrom().getId()),
+                            pe.getTitle(),
+                            pe.getStatus(),
+                            pe.getLastUpdate(),
+                            pe.getDetail(),
+                            pe.isSatisfied(),
+                            pe.getOtherDescriptions()
+                    )
+            );
+        }
         return posts;
     }
 
-    public String getUserInfoById(int to_id) {
-        Query query = entityManager.createQuery("select u from UserEntity u where u.id=:id");
-        query.setParameter("id", to_id);
-        return ((UserEntity) query.getSingleResult()).getUsername();
+	public List<UserResponse> getAllUsers() {
+        List<UserResponse> users = new ArrayList<>();
+        Query query = entityManager.createQuery("select u from UserEntity u");
+        List<UserEntity> userEntities = query.getResultList();
+        System.out.println(userEntities.size());
+        for (UserEntity ue: userEntities) {
+            users.add(
+                    new UserResponse(
+                            ue.getUsername(),
+                            ue.getEmail(),
+                            ue.getPassword(),
+                            ue.getRole(),
+                            ue.isActive()
+                    )
+            );
+        }
+        return users;
+    }
+	
+     public UsersEntity getUsersInfoById(int id) {
+        try{
+            Query query = entityManager.createQuery("select u from UsersEntity u where u.id=:id");
+            query.setParameter("id", id);
+            return (UsersEntity) query.getSingleResult();
+        } catch (Exception e){
+            System.out.println("ERRRRRRRRROOOOOORRR\n\n");
+            System.out.println(e);
+            System.out.println("\n\nERRRRRRRRROOOOOORRR");
+            return null;
+        }
     }
 }
