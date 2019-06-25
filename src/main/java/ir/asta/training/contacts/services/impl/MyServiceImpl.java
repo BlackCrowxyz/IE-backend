@@ -38,5 +38,15 @@ public class MyServiceImpl implements MyService{
 
     @Override
     public ActionResult<List<PostResponse>> createPost(final PostEntity entity) {return manager.createPost(entity);}
+	
+	  @Override
+    public ActionResult<List<PostResponse>> getAllPosts(final UserToken token) {
+        return manager.getAllPosts(token);
+    }
+
+    @Override
+    public ActionResult<List<UserResponse>> getAllUsers(UserToken token) {
+        return manager.getAllUsers(token);
+    }
 
 }
