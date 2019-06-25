@@ -49,4 +49,9 @@ public class MyServiceImpl implements MyService{
         return manager.getAllUsers(token);
     }
 
+	@Override
+    public ActionResult<List<UserResponse>> manageUsers(final ComingNewUser newUser) {
+        return manager.manageUsers(newUser);
+    }
+	
 }
