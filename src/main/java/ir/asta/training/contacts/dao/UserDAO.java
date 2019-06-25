@@ -162,4 +162,10 @@ public class UserDAO {
             return null;
         }
     }
+	
+	public void editUser(int id, String username, String password, String email, String role, boolean active) {
+        Query query = entityManager.createQuery("update UserEntity u SET u.username=:username, u.email=:email, u.password=:password, u.role=:role, u.Active=:active WHERE u.id=:id");
+        query.setParameter("username", username).setParameter("password", password).setParameter("email", email).setParameter("role", role).setParameter("active", active).setParameter("id", id);
+        query.executeUpdate();
+    }
 }
