@@ -42,4 +42,20 @@ public interface MyService {
     @Produces(MediaType.APPLICATION_JSON)
     public ActionResult<List<PostResponse>> createPost(final PostEntity entity);
 
+	//just returns all posts to (ADMIN|PROF|STUDENT) page
+    @POST
+    @Path("/getAllPosts")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ActionResult<List<PostResponse>> getAllPosts(final UserToken token);
+
+    //just returns all users to ADMIN page
+    @POST
+    @Path("/getAllUsers")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ActionResult<List<UserResponse>> getAllUsers(final UserToken token);
+	
+	
+	
 }
