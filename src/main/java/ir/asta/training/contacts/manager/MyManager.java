@@ -181,5 +181,42 @@ public class MyManager {
                 entity.getOtherDescriptions()
                 );
     }
+	
+	@Transactional
+    public ActionResult<List<PostResponse>> getAllPosts(final UserToken token) {
+        ActionResult<List<PostResponse>> result = new ActionResult<>();
+        result.setMessage("failed -> No such user in DB");
+        if (dao.containsTokenInDB(token.getToken())){
+            result.setMessage("failed -> Access denied");
+            //if admin requested the posts
+            if (Objects.equals(dao.getUserInfoByToken(token.getToken()).getRole(), "admin")){
+                result.setData(dao.getAllPosts());
+                result.setSuccess(true);
+                result.setMessage("successful -> Got all posts from DB (ADMIN)");
+            } else if(Objects.equals(dao.getUserInfoByToken(token.getToken()).getRole(), "prof")){ //prof requested the posts
+                result.setData(dao.getRelatedPosts(dao.getUserInfoByToken(token.getToken()).getId()));
+                result.setSuccess(true);
+                result.setMessage("successful -> Got all posts from DB (PROF)");
+            }
+        }
+        return result;
+    }
+	
+	@Transactional
+    public ActionResult<List<UserResponse>> getAllUsers(UserToken token) {
+        ActionResult<List<UserResponse>> result = new ActionResult<>();
+        result.setMessage("failed -> No such user in DB");
+        if (dao.containsTokenInDB(token.getToken())){
+            result.setMessage("failed -> Access denied");
+            //if admin requested the posts
+            if (Objects.equals(dao.getUserInfoByToken(token.getToken()).getRole(), "admin")){
+                result.setData(dao.getAllUsers());
+                result.setSuccess(true);
+                result.setMessage("successful -> Got all users from DB");
+            }
+        }
+        return result;
+    }
+
 
 }
