@@ -218,5 +218,31 @@ public class MyManager {
         return result;
     }
 
-
+	@Transactional
+    public ActionResult<List<UserResponse>> manageUsers(final ComingNewUser newUser) {
+        ActionResult<List<UserResponse>> result = new ActionResult<>();
+        result.setMessage("failed -> Access denied");
+        result.setData(dao.getAllUsers());
+        //check if user info is okay
+        if (validation(new UserEntity(null, newUser.getNew_username(), newUser.getEmail(), newUser.getPassword(), newUser.getPassword(), newUser.getRole(), newUser.isActive()))) {
+            //if admin requested the change
+            if (dao.containsTokenInDB(newUser.getToken()) && Objects.equals(dao.getUserInfoByToken(newUser.getToken()).getRole(), "admin")) {
+                result.setMessage("failed -> No such user in DB to edit(or update)");
+                if (dao.containsUsernameInDB(newUser.getLast_username())) { //does this user exist in DB?
+                    System.out.println("- User edited (by ADMIN)");
+                    dao.editUser(dao.getUserIdByUsername(newUser.getLast_username()), newUser.getNew_username(), newUser.getPassword(), newUser.getEmail(), newUser.getRole(), newUser.isActive());
+//                    result.setData(dao.getAllUsers());
+                    result.setSuccess(true);
+                    result.setMessage("successful -> Got all users from DB and user updated");
+                }
+            } else if (dao.containsTokenInDB(newUser.getToken()) && Objects.equals(dao.getUserInfoByToken(newUser.getToken()).getUsername(), newUser.getLast_username())) { //if user requested the change
+                System.out.println("- User edited (by USER itself)");
+                dao.editUser(dao.getUserIdByUsername(newUser.getLast_username()), newUser.getNew_username(), newUser.getPassword(), newUser.getEmail(), newUser.getRole(), newUser.isActive());
+                result.setMessage("successful -> Got all users from DB and user updated");
+//                result.setData(dao.getAllUsers());
+                result.setSuccess(true);
+            }
+        }
+        return result;
+    }
 }
