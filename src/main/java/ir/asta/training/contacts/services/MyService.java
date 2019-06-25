@@ -56,6 +56,13 @@ public interface MyService {
     @Produces(MediaType.APPLICATION_JSON)
     public ActionResult<List<UserResponse>> getAllUsers(final UserToken token);
 	
-	
+	//TODO: accept a user
+    //TODO: edit profile from user
+    //TODO: edit profile from admin
+    @POST
+    @Path("/manageUsers")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ActionResult<List<UserResponse>> manageUsers(final ComingNewUser newUser);
 	
 }
