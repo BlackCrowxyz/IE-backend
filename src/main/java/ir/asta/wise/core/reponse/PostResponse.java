@@ -1,89 +1,64 @@
-package ir.asta.training.contacts.entities;
+package ir.asta.wise.core.reponse;
 
+import ir.asta.training.contacts.entities.DetailsEntity;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 
-import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
- * Created by ASUS on 5/19/2019.
+ * Created by ASUS on 6/6/2019.
  */
-@Table(name = "posts")
-@Entity
-public class PostEntity {
+public class PostResponse {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
     private int post_id;
-    @Column(name = "title")
+    private String to_username;
+    private String from_username;
     private String title;
-    @Column(name = "status")
     private String status;
-    @Column(name = "lastUpdate")
     private String lastUpdate;
-    @Column(name = "detail")
     private String detail;
-    @Column(name = "satisfied")
     private boolean satisfied;
-//    @Column(name = "attachment")
 //    private Attachment attachment;
-
-    @OneToMany(targetEntity = DetailsEntity.class, cascade=CascadeType.ALL)
     private List<DetailsEntity> otherDescriptions;
 
-    @ManyToOne
-    @JoinColumn(name = "from_user_id")
-    private UsersEntity from;
+    public PostResponse() {
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "to_user_id")
-    private UsersEntity to;
-
-    public PostEntity(){}
-
-    public PostEntity(String title, String status, String lastUpdate, String detail, boolean satisfied, UsersEntity from, UsersEntity to) {
+    public PostResponse(int post_id, String to_username, String from_username, String title, String status, String lastUpdate, String detail, boolean satisfied, List<DetailsEntity> otherDescriptions) {
+        this.post_id = post_id;
+        this.to_username = to_username;
+        this.from_username = from_username;
         this.title = title;
         this.status = status;
         this.lastUpdate = lastUpdate;
         this.detail = detail;
         this.satisfied = satisfied;
-        this.otherDescriptions = null;
-        this.from = from;
-        this.to = to;
+//        this.attachment = attachment;
+        this.otherDescriptions = otherDescriptions;
     }
 
     public int getPost_id() {
         return post_id;
     }
 
-//    public Attachment getAttachment() {
-//        return attachment;
-//    }
-//
-//    public void setAttachment(Attachment attachment) {
-//        this.attachment = attachment;
-//    }
-
-
-    public UsersEntity getFrom() {
-        return from;
-    }
-
-    public void setFrom(UsersEntity from) {
-        this.from = from;
-    }
-
-    public UsersEntity getTo() {
-        return to;
-    }
-
-    public void setTo(UsersEntity to) {
-        this.to = to;
-    }
-
     public void setPost_id(int post_id) {
         this.post_id = post_id;
+    }
+
+    public String getFrom_username() {
+        return from_username;
+    }
+
+    public void setFrom_username(String from_username) {
+        this.from_username = from_username;
+    }
+
+    public String getTo_username() {
+        return to_username;
+    }
+
+    public void setTo_username(String to_username) {
+        this.to_username = to_username;
     }
 
     public String getTitle() {
@@ -126,6 +101,14 @@ public class PostEntity {
         this.satisfied = satisfied;
     }
 
+//    public Attachment getAttachment() {
+//        return attachment;
+//    }
+//
+//    public void setAttachment(Attachment attachment) {
+//        this.attachment = attachment;
+//    }
+
     public List<DetailsEntity> getOtherDescriptions() {
         return otherDescriptions;
     }
@@ -133,6 +116,4 @@ public class PostEntity {
     public void setOtherDescriptions(List<DetailsEntity> otherDescriptions) {
         this.otherDescriptions = otherDescriptions;
     }
-
-
 }
