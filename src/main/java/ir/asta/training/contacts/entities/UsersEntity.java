@@ -2,7 +2,10 @@ package ir.asta.training.contacts.entities;
 
 import javax.persistence.*;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Set;
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 
 /**
  * Created by ASUS on 6/7/2019.
@@ -18,6 +21,7 @@ public class UsersEntity {
     private String token;
 
     @OneToMany(targetEntity = PostEntity.class, cascade = CascadeType.ALL, mappedBy = "from")
+<<<<<<< HEAD
     private Set<PostEntity> sendPosts;
 
     @OneToMany(targetEntity = PostEntity.class, cascade = CascadeType.ALL, mappedBy = "to")
@@ -40,6 +44,26 @@ public class UsersEntity {
     }
 
     public void setReceivePosts(Set<PostEntity> receivePosts) {
+=======
+    private List<PostEntity> sendPosts;
+
+    @OneToMany(targetEntity = PostEntity.class, cascade = CascadeType.ALL, mappedBy = "to")
+    private List<PostEntity> receivePosts;
+
+    public List<PostEntity> getSendPosts() {
+        return sendPosts;
+    }
+
+    public void setSendPosts(List<PostEntity> sendPosts) {
+        this.sendPosts = sendPosts;
+    }
+
+    public List<PostEntity> getReceivePosts() {
+        return receivePosts;
+    }
+
+    public void setReceivePosts(List<PostEntity> receivePosts) {
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
         this.receivePosts = receivePosts;
     }
 

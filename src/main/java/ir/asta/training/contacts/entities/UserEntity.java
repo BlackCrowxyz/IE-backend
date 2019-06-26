@@ -8,7 +8,11 @@ import java.util.List;
  */
 
 @Entity
+<<<<<<< HEAD
 @Table(name = "usersInfo")
+=======
+@Table(name = "userInfo")
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 public class UserEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "user_id")
@@ -27,6 +31,11 @@ public class UserEntity {
     private String role;
     @Column(name = "is_active")
     private boolean Active;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 
     public UserEntity(){}
 

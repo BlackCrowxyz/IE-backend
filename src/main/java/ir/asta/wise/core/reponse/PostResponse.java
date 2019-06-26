@@ -10,9 +10,13 @@ import java.util.List;
  */
 public class PostResponse {
 
+<<<<<<< HEAD
     private int post_id;
     private String to_username;
     private String from_username;
+=======
+    private String to_username;
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
     private String title;
     private String status;
     private String lastUpdate;
@@ -24,10 +28,15 @@ public class PostResponse {
     public PostResponse() {
     }
 
+<<<<<<< HEAD
     public PostResponse(int post_id, String to_username, String from_username, String title, String status, String lastUpdate, String detail, boolean satisfied, List<DetailsEntity> otherDescriptions) {
         this.post_id = post_id;
         this.to_username = to_username;
         this.from_username = from_username;
+=======
+    public PostResponse(String to_username, String title, String status, String lastUpdate, String detail, boolean satisfied, List<DetailsEntity> otherDescriptions) {
+        this.to_username = to_username;
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
         this.title = title;
         this.status = status;
         this.lastUpdate = lastUpdate;
@@ -37,6 +46,7 @@ public class PostResponse {
         this.otherDescriptions = otherDescriptions;
     }
 
+<<<<<<< HEAD
     public int getPost_id() {
         return post_id;
     }
@@ -53,6 +63,8 @@ public class PostResponse {
         this.from_username = from_username;
     }
 
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
     public String getTo_username() {
         return to_username;
     }

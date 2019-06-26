@@ -1,13 +1,22 @@
 package ir.asta.training.contacts.services.impl;
 
+<<<<<<< HEAD
 import ir.asta.training.contacts.entities.*;
+=======
+import ir.asta.training.contacts.entities.PostEntity;
+import ir.asta.training.contacts.entities.UserEntity;
+import ir.asta.training.contacts.entities.UserToken;
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 import ir.asta.training.contacts.manager.MyManager;
 import ir.asta.training.contacts.services.MyService;
 import ir.asta.wise.core.datamanagement.ActionResult;
 import ir.asta.wise.core.reponse.PostResponse;
 import ir.asta.wise.core.reponse.Response;
+<<<<<<< HEAD
 import ir.asta.wise.core.reponse.UserResponse;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,6 +46,7 @@ public class MyServiceImpl implements MyService{
     }
 
     @Override
+<<<<<<< HEAD
     public ActionResult<List<PostResponse>> createPost(final ComingPost entity) {return manager.createPost(entity);}
 
     @Override
@@ -62,6 +72,23 @@ public class MyServiceImpl implements MyService{
     @Override
     public ActionResult managePosts(ComingPost entity) {
         return manager.managePosts(entity);
+=======
+    public ActionResult<List<PostResponse>> createPost(final PostEntity entity) {return manager.createPost(entity);}
+	
+	  @Override
+    public ActionResult<List<PostResponse>> getAllPosts(final UserToken token) {
+        return manager.getAllPosts(token);
     }
 
+    @Override
+    public ActionResult<List<UserResponse>> getAllUsers(UserToken token) {
+        return manager.getAllUsers(token);
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
+    }
+
+	@Override
+    public ActionResult<List<UserResponse>> manageUsers(final ComingNewUser newUser) {
+        return manager.manageUsers(newUser);
+    }
+	
 }

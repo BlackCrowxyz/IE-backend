@@ -16,6 +16,14 @@ public class PostEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private int post_id;
+<<<<<<< HEAD
+=======
+
+//    @Column(name = "from_id")
+//    private int from_id;
+//    @Column(name = "to_id")
+//    private int to_id;
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
     @Column(name = "title")
     private String title;
     @Column(name = "status")
@@ -28,6 +36,7 @@ public class PostEntity {
     private boolean satisfied;
 //    @Column(name = "attachment")
 //    private Attachment attachment;
+<<<<<<< HEAD
 
     @OneToMany(targetEntity = DetailsEntity.class, cascade=CascadeType.ALL)
     private List<DetailsEntity> otherDescriptions;
@@ -39,9 +48,13 @@ public class PostEntity {
     @ManyToOne
     @JoinColumn(name = "to_user_id")
     private UsersEntity to;
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 
-    public PostEntity(){}
+    @OneToMany(targetEntity = DetailsEntity.class, cascade=CascadeType.ALL)
+    private List<DetailsEntity> otherDescriptions;
 
+<<<<<<< HEAD
     public PostEntity(String title, String status, String lastUpdate, String detail, boolean satisfied, UsersEntity from, UsersEntity to) {
         this.title = title;
         this.status = status;
@@ -53,6 +66,18 @@ public class PostEntity {
         this.to = to;
     }
 
+=======
+    @ManyToOne
+    @JoinColumn(name = "from_user_id")
+    private UsersEntity from;
+
+    @ManyToOne
+    @JoinColumn(name = "to_user_id")
+    private UsersEntity to;
+
+    public PostEntity(){}
+
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
     public int getPost_id() {
         return post_id;
     }

@@ -1,12 +1,18 @@
 package ir.asta.training.contacts.entities;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 /**
  * Created by ASUS on 6/22/2019.
  */
 public class ComingPost {
+<<<<<<< HEAD
     private int post_id;
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
     private String from_token;
     private int to_id;
     private String title;
@@ -14,11 +20,15 @@ public class ComingPost {
     private String lastUpdate;
     private String status;
     private boolean satisfied;
+<<<<<<< HEAD
     private List<DetailsEntity> otherDescriptions;
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 //    private Attachment attachment;
 
     public ComingPost() {}
 
+<<<<<<< HEAD
     public int getPost_id() {
         return post_id;
     }
@@ -27,6 +37,8 @@ public class ComingPost {
         this.post_id = post_id;
     }
 
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
     public String getFrom_token() {
         return from_token;
     }
@@ -82,6 +94,7 @@ public class ComingPost {
     public void setSatisfied(boolean satisfied) {
         this.satisfied = satisfied;
     }
+<<<<<<< HEAD
 
     public List<DetailsEntity> getOtherDescriptions() {
         return otherDescriptions;
@@ -90,4 +103,6 @@ public class ComingPost {
     public void setOtherDescriptions(List<DetailsEntity> otherDescriptions) {
         this.otherDescriptions = otherDescriptions;
     }
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 }

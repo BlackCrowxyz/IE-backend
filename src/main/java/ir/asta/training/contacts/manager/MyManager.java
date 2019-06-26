@@ -1,11 +1,20 @@
 package ir.asta.training.contacts.manager;
 
 import ir.asta.training.contacts.dao.UserDAO;
+<<<<<<< HEAD
 import ir.asta.training.contacts.entities.*;
 import ir.asta.wise.core.datamanagement.ActionResult;
 import ir.asta.wise.core.reponse.PostResponse;
 import ir.asta.wise.core.reponse.Response;
 import ir.asta.wise.core.reponse.UserResponse;
+=======
+import ir.asta.training.contacts.entities.PostEntity;
+import ir.asta.training.contacts.entities.UserEntity;
+import ir.asta.training.contacts.entities.UserToken;
+import ir.asta.wise.core.datamanagement.ActionResult;
+import ir.asta.wise.core.reponse.PostResponse;
+import ir.asta.wise.core.reponse.Response;
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,12 +34,15 @@ public class MyManager {
     @Inject
     private UserDAO dao;
     private int id = 1;
+<<<<<<< HEAD
     private int id_post = 1;
 
     public MyManager() {
         this.id = 1;
         this.id_post = 1;
     }
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 
     private boolean validation(final UserEntity entity) {
         // checking of emptiness & pass==repass VALIDATION
@@ -76,7 +88,10 @@ public class MyManager {
         } else {
             entity.setToken(makeToken(id++));
             dao.saveUser(entity);
+<<<<<<< HEAD
             dao.saveToUsers(new UsersEntity(entity.getToken()));
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
             result.setData(makeUserResponse(entity));
             result.setSuccess(true);
             result.setMessage("successful -> User added to DB");
@@ -107,6 +122,16 @@ public class MyManager {
             } else if (Objects.equals(user.getPassword(), entity.getPassword())){
                 //TODO: how to return the whole JSON to client ?
                 result.setData(makeUserResponse(user));
+<<<<<<< HEAD
+=======
+
+//                System.out.println();
+//                System.out.println(user);
+//                System.out.println(user.getUsername());
+//                System.out.println(user.getToken());
+//                System.out.println();
+
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
                 result.setSuccess(true);
                 result.setMessage("successful -> got user from DB");
                 return result;
@@ -130,6 +155,10 @@ public class MyManager {
             //TODO: try , catch for null user ?
             //Object obj = dao.getUserInfo(entity);
             //UserEntity user = (obj != entity) ? (UserEntity) obj : null;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
             UserEntity user = dao.getUserInfoByToken(token.getToken());
             System.out.println("**************");
             if (user == null){
@@ -150,7 +179,11 @@ public class MyManager {
     }
 
     @Transactional
+<<<<<<< HEAD
     public ActionResult<List<PostResponse>> createPost(final ComingPost entity) {
+=======
+    public ActionResult<List<PostResponse>> createPost(final PostEntity entity) {
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
         ActionResult<List<PostResponse>> result = new ActionResult<>();
 
         if (Objects.equals(entity.getDetail(), "")
@@ -164,6 +197,7 @@ public class MyManager {
         result.setMessage("createPost > Success");
 
         //dao.createPost(entity);
+<<<<<<< HEAD
 
         //TODO: شک دارم که چی میشه این
         String from_id = (entity.getFrom_token()).substring(4,(entity.getFrom_token()).lastIndexOf("z"));
@@ -184,15 +218,24 @@ public class MyManager {
 
         result.setData(dao.getMyPosts(Integer.parseInt(from_id)));
 
+=======
+        dao.createPost(entity);
+        //result.setData(makePostResponse(entity)); //sending the entire post that sent to server  back to client
+        result.setData(dao.getMyPosts(entity.getFrom().getId()));
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
         //
         return result;
     }
 
     private PostResponse makePostResponse(PostEntity entity) {
         return new PostResponse(
+<<<<<<< HEAD
                 0,
                 dao.getUsernameById(entity.getTo().getId()),
                 dao.getUsernameById(entity.getFrom().getId()),
+=======
+                dao.getUserInfoById(entity.getTo().getId()),
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
                 entity.getTitle(),
                 entity.getStatus(),
                 entity.getLastUpdate(),
@@ -201,6 +244,7 @@ public class MyManager {
                 entity.getOtherDescriptions()
                 );
     }
+<<<<<<< HEAD
 
     @Transactional
     public ActionResult<List<PostResponse>> getAllPosts(final UserToken token) {
@@ -239,6 +283,46 @@ public class MyManager {
     }
 
     @Transactional
+=======
+	
+	@Transactional
+    public ActionResult<List<PostResponse>> getAllPosts(final UserToken token) {
+        ActionResult<List<PostResponse>> result = new ActionResult<>();
+        result.setMessage("failed -> No such user in DB");
+        if (dao.containsTokenInDB(token.getToken())){
+            result.setMessage("failed -> Access denied");
+            //if admin requested the posts
+            if (Objects.equals(dao.getUserInfoByToken(token.getToken()).getRole(), "admin")){
+                result.setData(dao.getAllPosts());
+                result.setSuccess(true);
+                result.setMessage("successful -> Got all posts from DB (ADMIN)");
+            } else if(Objects.equals(dao.getUserInfoByToken(token.getToken()).getRole(), "prof")){ //prof requested the posts
+                result.setData(dao.getRelatedPosts(dao.getUserInfoByToken(token.getToken()).getId()));
+                result.setSuccess(true);
+                result.setMessage("successful -> Got all posts from DB (PROF)");
+            }
+        }
+        return result;
+    }
+	
+	@Transactional
+    public ActionResult<List<UserResponse>> getAllUsers(UserToken token) {
+        ActionResult<List<UserResponse>> result = new ActionResult<>();
+        result.setMessage("failed -> No such user in DB");
+        if (dao.containsTokenInDB(token.getToken())){
+            result.setMessage("failed -> Access denied");
+            //if admin requested the posts
+            if (Objects.equals(dao.getUserInfoByToken(token.getToken()).getRole(), "admin")){
+                result.setData(dao.getAllUsers());
+                result.setSuccess(true);
+                result.setMessage("successful -> Got all users from DB");
+            }
+        }
+        return result;
+    }
+
+	@Transactional
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
     public ActionResult<List<UserResponse>> manageUsers(final ComingNewUser newUser) {
         ActionResult<List<UserResponse>> result = new ActionResult<>();
         result.setMessage("failed -> Access denied");
@@ -265,6 +349,7 @@ public class MyManager {
         }
         return result;
     }
+<<<<<<< HEAD
 
     @Transactional
     public ActionResult<List<UserResponse>> deleteUser(ComingNewUser newUser) {
@@ -307,4 +392,6 @@ public class MyManager {
         }
         return result;
     }
+=======
+>>>>>>> 5c4601b3a0d4e3aaa8b55c1b8c267b765c13df98
 }
